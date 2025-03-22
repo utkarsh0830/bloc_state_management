@@ -1,11 +1,11 @@
-import 'package:bloc_flutter/features/home/bloc/home_bloc.dart';
+import 'package:bloc_flutter/features/cart/bloc/cart_bloc.dart';
 import 'package:bloc_flutter/features/home/models/home_product_data_model.dart';
 import 'package:flutter/material.dart';
 
-class ProductTileWidget extends StatelessWidget {
+class CartTileWidget extends StatelessWidget {
   final ProductDataModel productDataModel;
-  final HomeBloc homeBloc;
-  const ProductTileWidget({super.key, required this.productDataModel, required this.homeBloc});
+  final CartBloc cartBloc;
+  const CartTileWidget({super.key, required this.productDataModel, required this.cartBloc});
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +13,8 @@ class ProductTileWidget extends StatelessWidget {
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
-        borderRadius: BorderRadius.circular(10)
+          border: Border.all(color: Colors.black),
+          borderRadius: BorderRadius.circular(10)
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,21 +24,21 @@ class ProductTileWidget extends StatelessWidget {
             height: 200,
             width: double.maxFinite,
             decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(
-                  productDataModel.imageUrl,
-                ),
-                fit: BoxFit.cover
-              )
+                image: DecorationImage(
+                    image: NetworkImage(
+                      productDataModel.imageUrl,
+                    ),
+                    fit: BoxFit.cover
+                )
             ),
           ),
           const SizedBox(height: 10,),
           Text(productDataModel.name,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-            fontStyle: FontStyle.italic,
-          ),),
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+              fontStyle: FontStyle.italic,
+            ),),
           Text(productDataModel.description),
           const SizedBox(height: 10,),
           Row(
@@ -57,9 +57,9 @@ class ProductTileWidget extends StatelessWidget {
                 children: [
                   IconButton(
                     onPressed: () {
-                      homeBloc.add(HomeProductWishListButtonClickedEvent(
-                        productDataModel
-                      ));
+                      // homeBloc.add(HomeProductWishListButtonClickedEvent(
+                      //     productDataModel
+                      // ));
 
                     },
                     icon: const Icon(
@@ -70,13 +70,13 @@ class ProductTileWidget extends StatelessWidget {
                   IconButton(
                     onPressed: () {
 
-                      homeBloc.add(HomeProductCartButtonClickedEvent(
-                        productDataModel
+                      cartBloc.add(CartRemoveFromCartEvent(
+                        productDataModel: productDataModel
                       ));
 
                     },
                     icon: const Icon(
-                      Icons.add_shopping_cart_outlined,
+                      Icons.shopping_bag,
                       color: Colors.black,
                     ),
                   ),

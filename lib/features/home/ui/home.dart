@@ -1,10 +1,10 @@
 import 'package:bloc_flutter/features/home/ui/product_tile_widget.dart';
-import 'package:bloc_flutter/features/home/ui/wishlist.dart';
+import 'package:bloc_flutter/features/wishlist/ui/wishlist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/home_bloc.dart';
-import 'cart.dart';
+import '../../cart/ui/cart.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -32,13 +32,18 @@ class _HomeState extends State<Home> {
         if (state is HomeNavigateToCartPageActionState) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Cart()),
+            MaterialPageRoute(builder: (context) => const Cart()),
           );
         } else if (state is HomeNavigateToWishlistPageActionState) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Wishlist()),
+            MaterialPageRoute(builder: (context) => const Wishlist()),
           );
+        } else if(state is HomeProductItemWishlistedActionState){
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Item Wishlisted")));
+        }else if(state is HomeProductItemCartedActionState){
+
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Item Carted")));
         }
       },
       builder: (context, state) {
@@ -82,6 +87,7 @@ class _HomeState extends State<Home> {
                 itemCount: successState.products.length,
                   itemBuilder: (context,index){
                 return ProductTileWidget(
+                  homeBloc: homeBloc,
                   productDataModel: successState.products[index],
                 );
               })

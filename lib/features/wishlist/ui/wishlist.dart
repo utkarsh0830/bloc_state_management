@@ -1,3 +1,4 @@
+import 'package:bloc_flutter/data/wishlist_items.dart';
 import 'package:flutter/material.dart';
 
 class Wishlist extends StatefulWidget {
@@ -10,6 +11,10 @@ class Wishlist extends StatefulWidget {
 class _WishlistState extends State<Wishlist> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Container(
+        child: Center(child: Text(wishlistItems[0].name)),
+      ),
+    );
   }
 }
